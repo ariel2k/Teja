@@ -12,12 +12,16 @@ import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Scanner;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class fMain extends JFrame {
 
 	private JPanel contentPane;
-	private JTextArea txtrTxtajava = new JTextArea();
+	private JLabel lblLblpath = new JLabel("");
+	private final JTextArea textArea = new JTextArea();
+	
 
 	/**
 	 * Launch the application.
@@ -46,22 +50,20 @@ public class fMain extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblLblpath = new JLabel("");
 		lblLblpath.setBounds(10, 11, 467, 14);
 		contentPane.add(lblLblpath);
 		
 		JButton btnBtnabrir = new JButton("Abrir");
 		btnBtnabrir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				abrirArchivoApi();
 			}
 		});
 		btnBtnabrir.setBounds(504, 11, 89, 23);
 		contentPane.add(btnBtnabrir);
+		textArea.setBounds(10, 67, 583, 351);
 		
-		
-		txtrTxtajava.setText("txtaJava");
-		txtrTxtajava.setBounds(10, 49, 583, 369);
-		contentPane.add(txtrTxtajava);
+		contentPane.add(textArea);
 	}
 	
 	private void abrirArchivoApi(){
@@ -75,14 +77,21 @@ public class fMain extends JFrame {
 		File archivo = selectorArchivos.getSelectedFile(); // obtiene el archivo seleccionado
 
 		// muestra error si es inválido
+		/*
 		if ((archivo == null) || (archivo.getName().equals(""))) {
-			txtrTxtajava.showMessageDialog(this, "Nombre de archivo inválido", "Nombre de archivo inválido", "Error general");
+			textPane .showMessageDialog(this, "Nombre de archivo inválido", "Nombre de archivo inválido");
 		} // fin de if
-
-		jlArchivo.setText(archivo.getAbsolutePath());
-		Scanner scn = new Scanner(archivo);
-		while (scn.hasNext()) {
-		 jtaContenido.insert(scn.nextLine() + "\n", jtaContenido.getText().length());
+		*/
+		
+		lblLblpath.setText(archivo.getAbsolutePath());
+		try {
+			Scanner scn = new Scanner(archivo);
+			while (scn.hasNext()) {
+				textArea.insert(scn.nextLine() + "\n" , textArea.getText().length());
+			}	
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		
 	}
 }
