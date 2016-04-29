@@ -21,7 +21,10 @@ public class fMain extends JFrame {
 	private JPanel contentPane;
 	private JLabel lblLblpath = new JLabel("");
 	private final JTextArea textArea = new JTextArea();
-	
+	private JLabel lblLineasCod = new JLabel("Cantidad lineas c\u00F3digo:");
+	private JLabel lblLineasComentarios = new JLabel("Cantidad lineas comentarios:");
+	private JLabel lblLineasBlancas = new JLabel("Cantidad lineas blancas:");
+
 
 	/**
 	 * Launch the application.
@@ -61,9 +64,18 @@ public class fMain extends JFrame {
 		});
 		btnBtnabrir.setBounds(504, 11, 89, 23);
 		contentPane.add(btnBtnabrir);
-		textArea.setBounds(10, 67, 583, 351);
+		textArea.setBounds(10, 65, 294, 353);
 		
 		contentPane.add(textArea);
+
+		lblLineasCod.setBounds(314, 72, 220, 23);
+		contentPane.add(lblLineasCod);
+		
+		lblLineasComentarios.setBounds(314, 110, 220, 23);
+		contentPane.add(lblLineasComentarios);
+		
+		lblLineasBlancas.setBounds(314, 151, 220, 23);
+		contentPane.add(lblLineasBlancas);
 	}
 	
 	private void abrirArchivoApi(){
@@ -82,36 +94,26 @@ public class fMain extends JFrame {
 			textPane .showMessageDialog(this, "Nombre de archivo inválido", "Nombre de archivo inválido");
 		} // fin de if
 		*/
-		
+		int nroComentario = 0, nroCodigo = 0, nroBlanco=0;		
 		lblLblpath.setText(archivo.getAbsolutePath());
 		try {
 			Scanner scn = new Scanner(archivo);
 			while (scn.hasNext()) {
 				textArea.insert(scn.nextLine() + "\n" , textArea.getText().length());
-<<<<<<< HEAD
 				//guardamos la linea en un string y le sacamos los espacios en blanco
-=======
->>>>>>> parent of 92b9083... v0.3
+				String linea = scn.nextLine().replace(" ","");
+				String lineaComentario[] = linea.split("//");
+				if(lineaComentario.length > 1){
+					nroComentario++;
+				}
 			}	
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-<<<<<<< HEAD
 		finally{
-			//lblLineasComentarios.setText("Cantidad de lineas comentario: " + nroComentario);
+			lblLineasComentarios.setText("Cantidad de lineas comentario: " + nroComentario);
 		}
-		
-		String texto = textArea.getText();
-		String textoCortado[] = texto.split("\n");
-		for (String linea : textoCortado) {
-			if(linea.equals("")){
-				nroBlanco++;
-			}else if{
-				
-			}
-		}
-=======
->>>>>>> parent of 92b9083... v0.3
 		
 	}
 }
