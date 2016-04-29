@@ -103,19 +103,16 @@ public class fMain extends JFrame {
 			while (scn.hasNext()) {
 				textArea.insert(scn.nextLine() + "\n" , textArea.getText().length());
 				//guardamos la linea en un string y le sacamos los espacios en blanco
-				String linea = scn.nextLine().replace(" ","");
-				String lineaComentario[] = linea.split("//");
-				if(lineaComentario.length > 1){
-					nroComentario++;
-				}
 			}	
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		finally{
-			lblLineasComentarios.setText("Cantidad de lineas comentario: " + nroComentario);
+			//lblLineasComentarios.setText("Cantidad de lineas comentario: " + nroComentario);
 		}
+		
+		String texto = textArea.getText();
 		
 	}
 }
