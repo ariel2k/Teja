@@ -113,6 +113,14 @@ public class fMain extends JFrame {
 		}
 		
 		String texto = textArea.getText();
+		String textoCortado[] = texto.split("\n");
+		for (String linea : textoCortado) {
+			if(linea.equals("")){
+				nroBlanco++;
+			}else if{
+				
+			}
+		}
 		
 	}
 }
