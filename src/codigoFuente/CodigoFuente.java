@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CodigoFuente{
 
@@ -201,4 +203,19 @@ public class CodigoFuente{
     	}
     }
 	
+    List<String> listarMetodos(String cod[]) {
+		Pattern REGEX = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
+		ArrayList<String> pepe = new ArrayList<String>();
+		
+    	for(int i = 0; i < cod.length; i++) {
+    		System.out.println(cod[i]);
+    		Matcher m = REGEX.matcher(cod[i]);
+    		if(m.find()) {
+    			
+    			pepe.add(cod[i]);
+    		}
+    	}
+    	return pepe;
+    	
+    }
 }
