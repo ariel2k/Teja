@@ -1,5 +1,6 @@
 package codigoFuente;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class CodigoFuente{
 
-	private List<String> lineasDeCodigo; 
+	private ArrayList<String> lineasDeCodigo; 
 	private double volumenHalstead;
 	private int lComentarioSimple = 0, 
 			lComentarioMultilinea = 0, 
@@ -28,7 +29,11 @@ public class CodigoFuente{
 	public void addLinea(String linea){
 		this.lineasDeCodigo.add(linea);
 	}
-	
+	public String[] lineasdeCodigo() {
+		String[] arr = new String[this.lineasDeCodigo.size()];
+		arr = this.lineasDeCodigo.toArray(arr);
+		return arr;
+	}
 	public void analizarCodigo(){
 		for (int i = 0; i < lineasDeCodigo.size(); i++) {
 			String linea = lineasDeCodigo.get(i);
@@ -208,11 +213,13 @@ public class CodigoFuente{
 		ArrayList<String> pepe = new ArrayList<String>();
 		
     	for(int i = 0; i < cod.length; i++) {
-    		System.out.println(cod[i]);
     		Matcher m = REGEX.matcher(cod[i]);
     		if(m.find()) {
-    			
+    			System.out.println(i);
     			pepe.add(cod[i]);
+    		}
+    		if(cod[i].matches("}")) {
+    			System.out.println(i);
     		}
     	}
     	return pepe;
