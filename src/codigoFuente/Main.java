@@ -28,8 +28,13 @@ public class Main {
 		cod.addLinea("    */");
 		
 		cod.addLinea("/*  ddd");
-		cod.addLinea("  //hola    ");
+		cod.addLinea("  //hola   ");
 		cod.addLinea("ddd */");
+		
+		cod.addLinea("aritonto");
+		
+		cod.addLinea("if(rocio=0 && ariel!=3)");
+		cod.addLinea("while rocio==3 or hernan==5");
 		
 		cod.analizarCodigo();
 	}

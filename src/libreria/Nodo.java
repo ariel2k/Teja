@@ -1,4 +1,4 @@
-package Librería;
+package libreria;
 
 public class Nodo {
 	private String cad;
