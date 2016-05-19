@@ -46,7 +46,7 @@ public class Interpretador {
 		int cantDeLlaves = 0;
 		for (int i = 0; i < lineasDeCodigo.size(); i++) {
 			String linea = lineasDeCodigo.get(i);
-			int rta = buscarClaseOMetodo(linea,cantDeLlaves);
+			int rta = buscarClaseOMetodo(linea,cantDeLlaves, i);
 			agregarLinea(linea, cantDeLlaves, rta);
 			cantDeLlaves += rta;
 		}
@@ -76,22 +76,46 @@ public class Interpretador {
 		this.clases.get(sizeClases).addLineaCodigo(linea, sizeMetodosUltimaClase);
 	}
 
-	private int buscarClaseOMetodo(String linea, int cantDeLlaves) {
-		if(linea.indexOf("{") > -1){
-			cantDeLlaves++;
-			if(cantDeLlaves == 1){
-				agregarClase(linea);
-			}else
-			if(cantDeLlaves == 2){
-				agregarMetodo(linea);
+	private int buscarClaseOMetodo(String linea, int cantDeLlaves, int i) {
+		if(esLlaveAbierta(linea)){
+			if(linea.indexOf("{") > -1){
+				cantDeLlaves++;
+				if(cantDeLlaves == 1){
+					String linea2 = this.lineasDeCodigo.get(--i);
+					agregarClase(linea2);
+				}else
+				if(cantDeLlaves == 2){
+					String linea2 = this.lineasDeCodigo.get(--i);
+					agregarMetodo(linea2);
+				}
+				return 1;
 			}
-			return 1;
 		}
+		if(!esLlaveAbierta(linea)){
+			if(linea.indexOf("{") > -1){
+				cantDeLlaves++;
+				if(cantDeLlaves == 1){
+					linea = this.lineasDeCodigo.get(i);
+					agregarClase(linea);
+				}else
+				if(cantDeLlaves == 2){
+					linea = this.lineasDeCodigo.get(i);
+					agregarMetodo(linea);
+				}
+				return 1;
+			}
+		}
+		
 		if(linea.indexOf("}") > -1){
 			cantDeLlaves--;
 			return -1;
 		}
 		return 0;
+	}
+
+	private boolean esLlaveAbierta(String linea) {
+		// TODO Auto-generated method stub
+		return linea.replace("{", "").matches("(|\\s+)");
 	}
 
 	private void agregarMetodo(String linea) {

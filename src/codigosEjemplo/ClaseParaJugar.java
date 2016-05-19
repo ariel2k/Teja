@@ -1,6 +1,7 @@
 package codigosEjemplo;
 
-public class ClaseParaJugar {
+public class ClaseParaJugar 
+{
 
 	public void todoComentarioSimple(){
 		//hola
@@ -118,5 +119,12 @@ public class ClaseParaJugar {
 	public void FanOut_1(){
 		
 	}
+	
+	public void MetodoConLlaveAbajo_1()
+	{
+		//Que hacemo
+	}
+	
+	
 	
 }
