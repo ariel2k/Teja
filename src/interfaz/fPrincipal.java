@@ -112,7 +112,7 @@ public class fPrincipal extends JFrame {
 			}
 		});
 		
-		mntmAbrirCarpeta.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
+		mntmAbrirCarpeta.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UNDEFINED, 0));
 		mnArchivo.add(mntmAbrirCarpeta);
 		
 		JMenu mnAcercaDe = new JMenu("Acerca de");

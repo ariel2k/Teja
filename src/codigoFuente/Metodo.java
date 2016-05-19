@@ -66,8 +66,8 @@ public class Metodo {
 	
 	private void calcularComplejidadCiclomatica() {
 		//Listado de palabras que representan un salto en el curso de decision.
-		String keywords[] = {"if", "else", "case", "default", "for", "while", "catch", "throw"};
-        String condiciones[] = {"&&", "||"};
+		String decisiones[] = {"if", "else", "case", "default", "for", "while", "catch", "throw"};
+		String condiciones[] = {"&&", "||"};
         int cantidad;
 		for (int i = 0; i < codigoFuente.size(); i++) {
 			String linea = codigoFuente.get(i);
@@ -75,7 +75,7 @@ public class Metodo {
 				int comentarioMultilinea = esComentarioMultiple(linea, i);
 				if( comentarioMultilinea < 0){
 					if (linea.matches(".*\\W*(if|else|case|default|while|for|catch|throw)\\W.*")) {
-		            	for(String palabra : keywords) {
+						for(String palabra : decisiones) {
 				        	cantidad = (linea.length() - linea.replace(palabra, "").length()) / palabra.length();
 				        	if(cantidad > 0) {
 				        		this.complejidadCiclomatica += cantidad;
@@ -133,7 +133,7 @@ public class Metodo {
 	private boolean esFinDeComentarioMultiple(String linea){
 		return linea.indexOf("*/") > -1;
 	}
-		
+	
 	public int contarPalabraEnMetodo(String palabraABuscar){
 		int cant = 0;
 		for (int i = 1; i < this.codigoFuente.size()-1; i++) {
