@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Set;
 
 public class Metodo {
-
+	Set<String> setOperadores = new HashSet<String>();
+	/*Set que contendra los operandos del codigo fuente*/
+	Set<String> setOperandos = new HashSet<String>();
 	private String nombre;
 	private List<String> codigoFuente;
 	private int lComentarioSimple, 
@@ -26,7 +28,12 @@ public class Metodo {
 	public String getNombre(){
 		return this.nombre;
 	}
-	
+	public int getLongitud(){
+		return this.longitudHalstead;
+	}
+	public double getVolumen() {
+		return this.volumenHalstead;
+	}
 	public int getLCodigo(){
 		return this.codigoFuente.size() - 2;
 	}
@@ -67,6 +74,7 @@ public class Metodo {
 		}
 		
 		calcularComplejidadCiclomatica();
+		calcularHalstead();
 	}
 	
 	private void calcularComplejidadCiclomatica() {
@@ -99,13 +107,12 @@ public class Metodo {
 			}
 		}
 	}
-	public String calcularHalstead() {
+	private void calcularHalstead() {
 		
 		/*Set que contendra los operadores del codigo fuente*/
 		Set<String> setOperadores = new HashSet<String>();
 		
-		/*Set que contendra los operandos del codigo fuente*/
-		Set<String> setOperandos = new HashSet<String>();
+		
 
 //    	Log log = new Log();
     	// Inicializo las metricas en 0
@@ -119,15 +126,13 @@ public class Metodo {
             buscarOperandos(linea);
         }
         
-        this.cantidadOperadoresUnicos = setOperadores.size();
-        this.cantidadOperandosUnicos = setOperandos.size();
+        this.cantidadOperadoresUnicos = this.setOperadores.size();
+        this.cantidadOperandosUnicos = this.setOperandos.size();
         
         this.longitudHalstead = this.cantidadOperadores + this.cantidadOperandos;
-        this.volumenHalstead = (this.longitudHalstead * (Math.log(this.cantidadOperadoresUnicos.doubleValue() + 
-        							  Math.log(this.cantidadOperandosUnicos.doubleValue())) / Math.log(2)));
+        this.volumenHalstead = (this.longitudHalstead * (Math.log(this.cantidadOperadoresUnicos + this.cantidadOperandosUnicos)) / Math.log(2));
         					// Hago esa cuenta para calcular el log en base 2. log en base 2 = log(x) / log(2)
-        return String.format("Longitud: %d - Volumen: %.2f - (Operadores %d - Operandos %d)", 
-	              longitudHalstead, volumenHalstead, cantidadOperadores, cantidadOperandos);
+
 	}
     
     void buscarOperadores(String linea) {
@@ -137,11 +142,11 @@ public class Metodo {
 								"&&", "||", "and", "or", "equal to"};
 
 		/*Set que contendra los operadores del codigo fuente*/
-		Set<String> setOperadores = new HashSet<String>();
+		
     	for(int i = 0; i < operadores.length - 1; i++)
     		if(linea.contains(operadores[i])) {
     			this.cantidadOperadores += 1;
-    			setOperadores.add(operadores[i]);
+    			this.setOperadores.add(operadores[i]);
     		}
     }
     
@@ -151,11 +156,11 @@ public class Metodo {
 
 		
 		/*Set que contendra los operandos del codigo fuente*/
-		Set<String> setOperandos = new HashSet<String>();
+
     	for(int i = 0; i < operandos.length ; i++)
     	{
     		this.cantidadOperandos += 1;
-    		setOperandos.add(operandos[i]);
+    		this.setOperandos.add(operandos[i]);
     	}
     }
 	private boolean esBlanco(String linea){

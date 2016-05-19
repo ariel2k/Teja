@@ -33,6 +33,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileFilter;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -284,7 +286,14 @@ public class fPrincipal extends JFrame {
 
 		});
 	}
-  
+	private static BigDecimal truncateDecimal(double x,int numberofDecimals)
+	{
+	    if ( x > 0) {
+	        return new BigDecimal(String.valueOf(x)).setScale(numberofDecimals, BigDecimal.ROUND_FLOOR);
+	    } else {
+	        return new BigDecimal(String.valueOf(x)).setScale(numberofDecimals, BigDecimal.ROUND_CEILING);
+	    }
+	}
 	protected void mostrarCodigoDelMetodoSeleccionado() {
 		int iClase = this.lClases.getSelectedIndex();
 		int iMetodo = this.lMetodos.getSelectedIndex();
@@ -307,7 +316,6 @@ public class fPrincipal extends JFrame {
 		Clase c = this.interprete.getClases().get(iClase);
 		Metricas m = new Metricas(c);
 		m.calcumarMetricas(iMetodo);
-		
 		this.lblLComentarios.setText(m.getLComentarios() + "");
 		this.lblLCodTotales.setText(m.getLCodigo() + "");
 		double porcentaje = Math.round((double) m.getLComentarios() * 100 / m.getLCodigo() );
@@ -315,6 +323,8 @@ public class fPrincipal extends JFrame {
 		this.lblComplejidadCiclomatica.setText(m.getComplejidadCiclomatica() + "");
 		this.lblFanIn.setText(m.getFanIn() + "");
 		this.lblFanOut.setText(m.getFanOut() + "");
+		this.lblHalsteadVolumen.setText(truncateDecimal(m.getVolumen(), 2) + "");
+		this.lblHalsteadLongitud.setText(truncateDecimal(m.getLongitud(), 2) + "");
 	}
 
 	private void listarArchivos(){

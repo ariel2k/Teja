@@ -23,7 +23,12 @@ public class Metricas {
 	public int getLCodigo() {
 		return m.getLCodigo();
 	}
-
+	public int getLongitud() {
+		return m.getLongitud();
+	}
+	public double getVolumen() {
+		return m.getVolumen();
+	}
 	public int getComplejidadCiclomatica() {
 		return m.getComplijdadCiclomatica();
 	}
