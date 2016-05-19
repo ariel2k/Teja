@@ -7,6 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import buscador.Interpretador;
+import codigoFuente.Clase;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -54,6 +58,10 @@ public class fPrincipal extends JFrame {
 	private JTextArea txtaCodigo = new JTextArea();
 	private JPanel panel = new JPanel();
 
+	private String[] ficheros;
+	private Interpretador interprete;
+	private JFileChooser chooser;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -108,6 +116,13 @@ public class fPrincipal extends JFrame {
 		
 		lMetodos.setBounds(153, 145, 311, 165);
 		contentPane.add(lMetodos);
+		lArchivos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				buscarClasesEnArchivo();
+			}
+
+		});
 		
 		
 		lArchivos.setBounds(10, 32, 454, 77);
@@ -234,17 +249,34 @@ public class fPrincipal extends JFrame {
 	}
 	
 	private void listarArchivos(){
-		JFileChooser chooser = new JFileChooser();
+		chooser = new JFileChooser();
 	    chooser.setCurrentDirectory(new java.io.File("."));
 	    chooser.setDialogTitle("choosertitle");
 	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 	    chooser.setAcceptAllFileFilterUsed(false);
 
 	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-	      File dir = new File(chooser.getSelectedFile() + "");
-	      String[] ficheros = dir.list();
+	    	/* System.out.println("getCurrentDirectory(): " 
+	    	         +  chooser.getCurrentDirectory());
+	    	      System.out.println("getSelectedFile() : " 
+	    	         +  chooser.getSelectedFile());
+	    	  */    
+	      File dir = new File(chooser.getSelectedFile()+ "");
+	      ficheros = dir.list();
 	      if (ficheros != null)
 	    	  this.lArchivos.setListData(ficheros);
 	    } 
+	}
+	
+
+	private void buscarClasesEnArchivo() {
+		// TODO Auto-generated method stub
+		int i = this.lArchivos.getSelectedIndex();
+		String ruta = chooser.getSelectedFile() +"\\" + ficheros[i];
+		interprete = new Interpretador(ruta);
+		//JList list = new JList(arl.toArray()); 
+		this.lClases = new JList(interprete.getClases().toArray());
+		//lClases = new JList((ListModel) interprete.getClases());
+		//Clase[] clases = interprete.getClases();
 	}
 }

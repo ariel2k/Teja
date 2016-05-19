@@ -208,6 +208,23 @@ public class CodigoFuente{
     	}
     }
 	
+    List<String> listarMetodos2() {
+		Pattern REGEX = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
+		ArrayList<String> pepe = new ArrayList<String>();
+		
+		for (int i = 0; i < this.lineasDeCodigo.size(); i++) {
+			Matcher m = REGEX.matcher(this.lineasDeCodigo.get(i));
+			if(m.find()) {
+    			System.out.println(i);
+    			pepe.add(this.lineasDeCodigo.get(i));
+    		}
+    		if(this.lineasDeCodigo.get(i).matches("}")) {
+    			System.out.println(i);
+    		}
+		}
+		return pepe;
+    }
+    
     List<String> listarMetodos(String cod[]) {
 		Pattern REGEX = Pattern.compile("(public|protected|private|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+(\\w+) *\\([^\\)]*\\) *(\\{?|[^;])");
 		ArrayList<String> pepe = new ArrayList<String>();
@@ -223,6 +240,10 @@ public class CodigoFuente{
     		}
     	}
     	return pepe;
-    	
+    }
+    
+    List<String> listarClases(){
+    	ArrayList<String> clases = new ArrayList<String>();
+    	return clases;
     }
 }
