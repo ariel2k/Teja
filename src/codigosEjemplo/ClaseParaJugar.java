@@ -75,11 +75,48 @@ public class ClaseParaJugar {
 	}
 	
 	public void ComplejidadCiclomatica_2_2(){
-		if (1 > 1) {
+		if (1 > 1) 
 			System.out.println("hola");
-		}else{
+		else
 			System.out.println("chau");
+		
+	}
+	
+	public void ComplejidadCiclomaticaAND_3(){
+		if (1 > 1 && 2 == 3) 
+			System.out.println("hola");
+		else
+			System.out.println("chau");
+	}
+	
+	public void ComplejidadCiclomaticaOR_3(){
+		if (1 > 1 || 2 == 3) 
+			System.out.println("hola");
+		else
+			System.out.println("chau");
+	}
+	
+	public void CCFor_2(){
+		for (int i = 0; i < 3; i++) {
+			System.out.println("hola");
 		}
+	}
+	
+	public void CCFor_3(){
+		for (int i = 0; i < 3; i++) {
+			if (i>1) {
+				System.out.println("es");
+			}
+			System.out.println("hola");
+		}
+	}
+	
+	public void FanIn_1(){
+		FanOut_1();
+	}
+	
+	public void FanOut_1(){
+		
 	}
 	
 }
