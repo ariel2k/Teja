@@ -46,16 +46,9 @@ public class Interpretador {
 		int cantDeLlaves = 0;
 		for (int i = 0; i < lineasDeCodigo.size(); i++) {
 			String linea = lineasDeCodigo.get(i);
-			/*if(!esBlanco(linea) && !esComentarioSimple(linea)){
-				int comentarioMultilinea = esComentarioMultiple(linea, i);
-				if( comentarioMultilinea > -1){
-					i += comentarioMultilinea;
-				}else{*/
-					int rta = buscarClaseOMetodo(linea,cantDeLlaves);
-					agregarLinea(linea, cantDeLlaves, rta);
-					cantDeLlaves += rta;
-			//	}
-		//	}
+			int rta = buscarClaseOMetodo(linea,cantDeLlaves);
+			agregarLinea(linea, cantDeLlaves, rta);
+			cantDeLlaves += rta;
 		}
 	}
 	
@@ -133,43 +126,4 @@ public class Interpretador {
 		this.clases.add(c);
 	}
 
-	private boolean esBlanco(String linea){
-		/* () = subgrupo
-		 * | = or
-		 * \\s = algun caracter en blanco
-		 * + = puede haber mas de uno
-		 * regex: subgrupo de nada o conjunto de caracteres de separacion
-		 * */
-		return linea.matches("(|\\s+)");
-	}
-	
-	private boolean esComentarioSimple(String linea){
-		/* ? = concatenacion
-		 * // = caracter que tiene que estar luego del conjunto de espacios en blanco
-		 * .*$ = hasta el final de la linea
-		 * */
-		return linea.matches("^(|\\s+)?//.*$");
-	}
-
-	private int esComentarioMultiple(String linea, int index){
-		if (esInicioDeComentarioMultiple(linea)) {
-			int i = index;
-			String lineaFinal = this.lineasDeCodigo.get(i);
-			while(!esFinDeComentarioMultiple(lineaFinal) && i < this.lineasDeCodigo.size()){
-				i++;		
-				lineaFinal = this.lineasDeCodigo.get(i);
-			}
-			return i - index;
-		}
-		return -1;
-	} 
-
-	private boolean esInicioDeComentarioMultiple(String linea){
-		return linea.indexOf("/*") > -1;
-	}
-
-	private boolean esFinDeComentarioMultiple(String linea){
-		return linea.indexOf("*/") > -1;
-	}
-	
 }
