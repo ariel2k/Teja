@@ -35,6 +35,7 @@ public class Metricas {
 		}	
 		return fanIn;
 	}
+<<<<<<< HEAD
 	
 	public int getFanOut(){
 		int fanOut=0;
@@ -43,5 +44,14 @@ public class Metricas {
 		}
 		return fanOut;
 	}
+=======
+>>>>>>> origin/master
 	
+	public int getFanOut(){
+		int fanOut=0;
+		for (Metodo metodo : clase.getMetodos()) {
+			fanOut += metodo.contarPalabraEnMetodo(m.getNombre());
+		}
+		return fanOut;
+	}
 }
