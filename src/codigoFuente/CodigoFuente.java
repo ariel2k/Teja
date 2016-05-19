@@ -34,8 +34,8 @@ public class CodigoFuente{
 		arr = this.lineasDeCodigo.toArray(arr);
 		return arr;
 	}
-	public void analizarCodigo(int limInf, int limSup){
-		for (int i = limInf; i < limpSup; i++) {
+	public void analizarCodigo(){
+		for (int i = 0; i < lineasDeCodigo.size(); i++) {
 			String linea = lineasDeCodigo.get(i);
 			if(esBlanco(linea)){
 				//System.out.println("------BLANCO:----- [" + linea +"]");
