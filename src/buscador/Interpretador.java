@@ -2,6 +2,9 @@ package buscador;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import codigoFuente.*;
 import archivo.Archivo;
 
@@ -21,6 +24,14 @@ public class Interpretador {
 	
 	public List<Clase> getClases(){
 		return clases;
+	}
+	
+	public List<String> getNombreClases(){
+		List<String> nombreClases = new ArrayList<String>();
+		for (Clase clase: clases) {
+			nombreClases.add(clase.getNombre());
+		}
+		return nombreClases;
 	}
 	
 	private void pasarAList(){
@@ -91,14 +102,34 @@ public class Interpretador {
 	}
 
 	private void agregarMetodo(String linea) {
-		// TODO Auto-generated method stub
+		String[] palabras = linea.split(" ");
+		//System.out.println("LINEA METODO: ");
+		int indiceParentesis;
+		String nombreMetodo = "";
+		for (int i = 0; i < palabras.length; i++) {
+			//System.out.println(i + ": " + palabras[i]);
+			indiceParentesis = palabras[i].indexOf("(");
+			if(indiceParentesis > -1){
+				nombreMetodo = palabras[i].substring(0, indiceParentesis);
+			}
+		}
+		//System.out.println(nombreMetodo);
 		int sizeClases = this.clases.size() -1;
-		this.clases.get(sizeClases).addMetodo(linea);
+		this.clases.get(sizeClases).addMetodo(nombreMetodo);
 	}
 	
 	private void agregarClase(String linea) {
 		// TODO Auto-generated method stub
-		Clase c = new Clase(linea);
+		//System.out.println("----LINEA CLASE---");
+		String[] palabras = linea.split(" ");
+		String nombreClase;
+		if(palabras[2].indexOf("{") > -1){
+			nombreClase = palabras[2].substring(0, palabras[2].length()-1);
+		}else{
+			nombreClase = palabras[2];
+		}
+		//System.out.println(nombreClase);
+		Clase c = new Clase(nombreClase);
 		this.clases.add(c);
 	}
 

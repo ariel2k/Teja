@@ -10,6 +10,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import buscador.Interpretador;
 import codigoFuente.Clase;
+import metricas.Metricas;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -38,6 +39,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 
 public class fPrincipal extends JFrame {
@@ -57,6 +61,15 @@ public class fPrincipal extends JFrame {
 	private JLabel lblCdigoMtodo = new JLabel("C\u00F3digo del m\u00E9todo:");
 	private JTextArea txtaCodigo = new JTextArea();
 	private JPanel panel = new JPanel();
+
+	private	JLabel lblLCodTotales = new JLabel("");
+	private	JLabel lblLComentarios = new JLabel("");
+	private	JLabel lblPComentarios = new JLabel("");
+	private	JLabel lblComplejidadCiclomatica = new JLabel("");
+	private	JLabel lblFanIn = new JLabel("");
+	private	JLabel lblFanOut = new JLabel("");
+	private	JLabel lblHalsteadLongitud = new JLabel("");
+	private	JLabel lblHalsteadVolumen = new JLabel("");
 
 	private String[] ficheros;
 	private Interpretador interprete;
@@ -110,44 +123,20 @@ public class fPrincipal extends JFrame {
 		contentPane.setLayout(null);
 		
 		
-		lClases.setBounds(10, 145, 133, 165);
-		contentPane.add(lClases);
-		
-		
-		lMetodos.setBounds(153, 145, 311, 165);
-		contentPane.add(lMetodos);
-		lArchivos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				buscarClasesEnArchivo();
-			}
-
-		});
-		
-		
-		lArchivos.setBounds(10, 32, 454, 77);
-		contentPane.add(lArchivos);
-		
-		
 		lblSeleccionarArchivoA.setBounds(10, 11, 168, 14);
 		contentPane.add(lblSeleccionarArchivoA);
 		
 		
-		lblElegirClase.setBounds(10, 125, 133, 14);
+		lblElegirClase.setBounds(213, 11, 133, 14);
 		contentPane.add(lblElegirClase);
 		
 		
-		lblElegirMtodo.setBounds(153, 125, 133, 14);
+		lblElegirMtodo.setBounds(213, 125, 133, 14);
 		contentPane.add(lblElegirMtodo);
 		
 		
 		lblCdigoMtodo.setBounds(10, 321, 133, 14);
 		contentPane.add(lblCdigoMtodo);
-		
-		
-		txtaCodigo.setEditable(false);
-		txtaCodigo.setBounds(10, 339, 701, 211);
-		contentPane.add(txtaCodigo);
 		
 		
 		panel.setBackground(SystemColor.text);
@@ -187,56 +176,56 @@ public class fPrincipal extends JFrame {
 		lbl8.setBounds(10, 245, 136, 22);
 		panel.add(lbl8);
 		
-		JLabel lblLCodTotales = new JLabel("");
+		
 		lblLCodTotales.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblLCodTotales.setForeground(SystemColor.activeCaption);
 		lblLCodTotales.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLCodTotales.setBounds(145, 7, 81, 28);
 		panel.add(lblLCodTotales);
 		
-		JLabel lblLComentarios = new JLabel("");
+		
 		lblLComentarios.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblLComentarios.setForeground(SystemColor.activeCaption);
 		lblLComentarios.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblLComentarios.setBounds(145, 44, 81, 28);
 		panel.add(lblLComentarios);
 		
-		JLabel lblPComentarios = new JLabel("");
+		
 		lblPComentarios.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPComentarios.setForeground(SystemColor.activeCaption);
 		lblPComentarios.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblPComentarios.setBounds(145, 76, 81, 28);
 		panel.add(lblPComentarios);
 		
-		JLabel lblComplejidadCiclomatica = new JLabel("");
+		
 		lblComplejidadCiclomatica.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblComplejidadCiclomatica.setForeground(SystemColor.activeCaption);
 		lblComplejidadCiclomatica.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblComplejidadCiclomatica.setBounds(145, 109, 81, 28);
 		panel.add(lblComplejidadCiclomatica);
 		
-		JLabel lblFanIn = new JLabel("");
+		
 		lblFanIn.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFanIn.setForeground(SystemColor.activeCaption);
 		lblFanIn.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblFanIn.setBounds(145, 142, 81, 28);
 		panel.add(lblFanIn);
 		
-		JLabel lblFanOut = new JLabel("");
+		
 		lblFanOut.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblFanOut.setForeground(SystemColor.activeCaption);
 		lblFanOut.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblFanOut.setBounds(145, 175, 81, 28);
 		panel.add(lblFanOut);
 		
-		JLabel lblHalsteadLongitud = new JLabel("");
+		
 		lblHalsteadLongitud.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblHalsteadLongitud.setForeground(SystemColor.activeCaption);
 		lblHalsteadLongitud.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblHalsteadLongitud.setBounds(145, 208, 81, 28);
 		panel.add(lblHalsteadLongitud);
 		
-		JLabel lblHalsteadVolumen = new JLabel("");
+		
 		lblHalsteadVolumen.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblHalsteadVolumen.setForeground(SystemColor.activeCaption);
 		lblHalsteadVolumen.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -246,37 +235,121 @@ public class fPrincipal extends JFrame {
 		JLabel lblMtricasDelMtodo = new JLabel("M\u00E9tricas del m\u00E9todo:");
 		lblMtricasDelMtodo.setBounds(475, 11, 168, 14);
 		contentPane.add(lblMtricasDelMtodo);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 32, 193, 278);
+		contentPane.add(scrollPane);
+		scrollPane.setViewportView(lArchivos);
+		lArchivos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(213, 32, 251, 86);
+		contentPane.add(scrollPane_1);
+		scrollPane_1.setViewportView(lClases);
+		lClases.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(213, 150, 251, 159);
+		contentPane.add(scrollPane_2);
+		lMetodos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				mostrarCodigoDelMetodoSeleccionado();
+			}
+		});
+		scrollPane_2.setViewportView(lMetodos);
+		lMetodos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(10, 344, 701, 206);
+		contentPane.add(scrollPane_3);
+		scrollPane_3.setViewportView(txtaCodigo);
+		
+		
+		txtaCodigo.setEditable(false);
+		lClases.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				mostrarMetodosDeLaClaseSeleccionada();
+			}
+
+			
+		});
+		lArchivos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				buscarClasesEnArchivo();
+			}
+
+		});
 	}
-	
+  
+	protected void mostrarCodigoDelMetodoSeleccionado() {
+		int iClase = this.lClases.getSelectedIndex();
+		int iMetodo = this.lMetodos.getSelectedIndex();
+		List<String> codigoFuente = this.interprete.getClases().get(iClase).getMetodos().get(iMetodo).getCodigoFuente();
+		String textoCodigoFuente = "";
+		for (String string : codigoFuente) {
+			textoCodigoFuente += string + "\n";
+		}
+		this.txtaCodigo.setText(textoCodigoFuente);
+		
+		//Ejecutar metricas
+		ejecutarMetricas();
+	}
+
+	private void ejecutarMetricas() {
+		// TODO Auto-generated method stub
+		int iClase = this.lClases.getSelectedIndex();
+		int iMetodo = this.lMetodos.getSelectedIndex();
+		
+		Clase c = this.interprete.getClases().get(iClase);
+		Metricas m = new Metricas(c);
+		m.calcumarMetricas(iMetodo);
+		
+		this.lblLComentarios.setText(m.getLComentarios() + "");
+		this.lblLCodTotales.setText(m.getLCodigo() + "");
+		this.lblComplejidadCiclomatica.setText(m.getComplejidadCiclomatica() + "");
+	}
+
 	private void listarArchivos(){
 		chooser = new JFileChooser();
 	    chooser.setCurrentDirectory(new java.io.File("."));
 	    chooser.setDialogTitle("choosertitle");
 	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 	    chooser.setAcceptAllFileFilterUsed(false);
-
 	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-	    	/* System.out.println("getCurrentDirectory(): " 
-	    	         +  chooser.getCurrentDirectory());
-	    	      System.out.println("getSelectedFile() : " 
-	    	         +  chooser.getSelectedFile());
-	    	  */    
 	      File dir = new File(chooser.getSelectedFile()+ "");
 	      ficheros = dir.list();
 	      if (ficheros != null)
 	    	  this.lArchivos.setListData(ficheros);
 	    } 
+	    
+	    //vaciamos las listas
+		String[] vacio = new String[0];
+		this.lClases.setListData(vacio);
+		this.lMetodos.setListData(vacio);
+		this.txtaCodigo.setText("");
 	}
 	
 
 	private void buscarClasesEnArchivo() {
-		// TODO Auto-generated method stub
 		int i = this.lArchivos.getSelectedIndex();
 		String ruta = chooser.getSelectedFile() +"\\" + ficheros[i];
 		interprete = new Interpretador(ruta);
-		//JList list = new JList(arl.toArray()); 
-		this.lClases = new JList(interprete.getClases().toArray());
-		//lClases = new JList((ListModel) interprete.getClases());
-		//Clase[] clases = interprete.getClases();
+		this.lClases.setListData( interprete.getNombreClases().toArray());
+		
+		//vaciamos las listas
+		String[] vacio = new String[0];
+		this.lMetodos.setListData(vacio);
+		this.txtaCodigo.setText("");
+	}
+	
+	private void mostrarMetodosDeLaClaseSeleccionada() {
+		int iClase = this.lClases.getSelectedIndex();
+		this.lMetodos.setListData(this.interprete.getClases().get(iClase).getNombresMetodos().toArray());
+		
+		//vaciamos las listas
+		this.txtaCodigo.setText("");
 	}
 }
