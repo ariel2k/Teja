@@ -12,7 +12,12 @@ public class Metodo {
 	private int lComentarioSimple, 
 				lComentarioMultilinea;
 	private Integer complejidadCiclomatica;	
-	
+	private Integer longitudHalstead,
+	cantidadOperadoresUnicos = 0,
+	cantidadOperadores = 0,
+	cantidadOperandosUnicos = 0,
+	cantidadOperandos = 0;	
+	private double volumenHalstead;
 	public Metodo(String nombre){
 		this.nombre = nombre;
 		codigoFuente = new ArrayList<String>();
@@ -94,7 +99,65 @@ public class Metodo {
 			}
 		}
 	}
+	public String calcularHalstead() {
+		
+		/*Set que contendra los operadores del codigo fuente*/
+		Set<String> setOperadores = new HashSet<String>();
+		
+		/*Set que contendra los operandos del codigo fuente*/
+		Set<String> setOperandos = new HashSet<String>();
 
+//    	Log log = new Log();
+    	// Inicializo las metricas en 0
+    	this.longitudHalstead = 0;
+    	this.volumenHalstead = 0.0;
+    	    	
+        for (String linea : codigoFuente) {
+            //log.debug("Leyendo línea " + linea);
+            
+            buscarOperadores(linea);
+            buscarOperandos(linea);
+        }
+        
+        this.cantidadOperadoresUnicos = setOperadores.size();
+        this.cantidadOperandosUnicos = setOperandos.size();
+        
+        this.longitudHalstead = this.cantidadOperadores + this.cantidadOperandos;
+        this.volumenHalstead = (this.longitudHalstead * (Math.log(this.cantidadOperadoresUnicos.doubleValue() + 
+        							  Math.log(this.cantidadOperandosUnicos.doubleValue())) / Math.log(2)));
+        					// Hago esa cuenta para calcular el log en base 2. log en base 2 = log(x) / log(2)
+        return String.format("Longitud: %d - Volumen: %.2f - (Operadores %d - Operandos %d)", 
+	              longitudHalstead, volumenHalstead, cantidadOperadores, cantidadOperandos);
+	}
+    
+    void buscarOperadores(String linea) {
+    	/*Listado de palabras que consideramos operadores*/
+		String operadores [] = {"if", "else", "case", "default", "for", "while", "catch", "throw",
+								"+", "-", "*", "/", "==", "!=", "=", "<=", ">=", "<", ">",
+								"&&", "||", "and", "or", "equal to"};
+
+		/*Set que contendra los operadores del codigo fuente*/
+		Set<String> setOperadores = new HashSet<String>();
+    	for(int i = 0; i < operadores.length - 1; i++)
+    		if(linea.contains(operadores[i])) {
+    			this.cantidadOperadores += 1;
+    			setOperadores.add(operadores[i]);
+    		}
+    }
+    
+    void buscarOperandos(String linea) {
+    	String operandos[] = linea.split("^.*(if|else|case|default|for|while|catch|throw|\\+|-|\\*|\\/"
+    									 + "|={1}?|!=|={2}?|<=|>=|<{1}?|>{1}?|&&|\\|{2}?|and|or|equal to).*");
+
+		
+		/*Set que contendra los operandos del codigo fuente*/
+		Set<String> setOperandos = new HashSet<String>();
+    	for(int i = 0; i < operandos.length ; i++)
+    	{
+    		this.cantidadOperandos += 1;
+    		setOperandos.add(operandos[i]);
+    	}
+    }
 	private boolean esBlanco(String linea){
 		/* () = subgrupo
 		 * | = or
@@ -125,7 +188,7 @@ public class Metodo {
 		}
 		return -1;
 	} 
-
+	
 	private boolean esInicioDeComentarioMultiple(String linea){
 		return linea.indexOf("/*") > -1;
 	}
