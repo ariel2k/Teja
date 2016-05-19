@@ -53,7 +53,6 @@ public class Interpretador {
 	}
 	
 	private void agregarLinea(String linea, int cantDeLlaves, int rta) {
-		// TODO Auto-generated method stub
 		if(rta + cantDeLlaves > 1 || (cantDeLlaves == 2 && rta == -1)){
 			agregarLineasAlMetodo(linea);
 		}else
@@ -63,14 +62,12 @@ public class Interpretador {
 	}
 
 	private void agregarLineasALaClase(String linea) {
-		// TODO Auto-generated method stub
 		int size = this.clases.size()-1;
 		Clase c = this.clases.get(size);
 		c.addLineaCodigo(linea, -1);
 	}
 
 	private void agregarLineasAlMetodo(String linea) {
-		// TODO Auto-generated method stub
 		int sizeClases = this.clases.size()-1;
 		int sizeMetodosUltimaClase = this.clases.get(sizeClases).getNombresMetodos().size() -1;
 		this.clases.get(sizeClases).addLineaCodigo(linea, sizeMetodosUltimaClase);
@@ -83,6 +80,7 @@ public class Interpretador {
 				if(cantDeLlaves == 1){
 					String linea2 = this.lineasDeCodigo.get(--i);
 					agregarClase(linea2);
+					this.agregarLineasALaClase(linea2);
 				}else
 				if(cantDeLlaves == 2){
 					String linea2 = this.lineasDeCodigo.get(--i);
@@ -115,7 +113,6 @@ public class Interpretador {
 	}
 
 	private boolean esLlaveAbierta(String linea) {
-		// TODO Auto-generated method stub
 		return linea.replace("{", "").matches("(|\\s+)");
 	}
 
@@ -137,7 +134,6 @@ public class Interpretador {
 	}
 	
 	private void agregarClase(String linea) {
-		// TODO Auto-generated method stub
 		//System.out.println("----LINEA CLASE---");
 		String[] palabras = linea.split(" ");
 		String nombreClase;

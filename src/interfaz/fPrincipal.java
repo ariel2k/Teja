@@ -15,6 +15,7 @@ import metricas.Metricas;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.ListModel;
 
@@ -33,8 +34,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FilenameFilter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFileChooser;
@@ -87,6 +90,7 @@ public class fPrincipal extends JFrame {
 				try {
 					fPrincipal frame = new fPrincipal();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null); 
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -102,11 +106,9 @@ public class fPrincipal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 741, 611);
-		
-		
+				
 		setJMenuBar(menuBar);
-		
-		
+			
 		menuBar.add(mnArchivo);
 		mntmAbrirCarpeta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -114,11 +116,8 @@ public class fPrincipal extends JFrame {
 			}
 		});
 		
-		mntmAbrirCarpeta.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UNDEFINED, 0));
+		//mntmAbrirCarpeta.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_UNDEFINED, 0));
 		mnArchivo.add(mntmAbrirCarpeta);
-		
-		JMenu mnAcercaDe = new JMenu("Acerca de");
-		menuBar.add(mnAcercaDe);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.activeCaption);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -328,6 +327,9 @@ public class fPrincipal extends JFrame {
 	}
 
 	private void listarArchivos(){
+		
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+	            "java file", "java");		
 		chooser = new JFileChooser();
 	    chooser.setCurrentDirectory(new java.io.File("."));
 	    chooser.setDialogTitle("choosertitle");
@@ -335,9 +337,12 @@ public class fPrincipal extends JFrame {
 	    chooser.setAcceptAllFileFilterUsed(false);
 	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 	      File dir = new File(chooser.getSelectedFile()+ "");
-	      ficheros = dir.list();
-	      if (ficheros != null)
+	      String[] ficherosTodos = dir.list();
+	      ficheros = filtrarFicherosJava(ficherosTodos);
+	      if (ficheros.length > 0)
 	    	  this.lArchivos.setListData(ficheros);
+	      else
+	    	  JOptionPane.showMessageDialog(null,"Carpeta sin archivos .java"); 
 	    } 
 	    
 	    //vaciamos las listas
@@ -345,8 +350,24 @@ public class fPrincipal extends JFrame {
 		this.lClases.setListData(vacio);
 		this.lMetodos.setListData(vacio);
 		this.txtaCodigo.setText("");
+		limpiarLbls();
 	}
 	
+
+	private String[] filtrarFicherosJava(String[] ficherosTodos) {
+		List<String> ficheros = new ArrayList<String>();
+		for (int i = 0; i < ficherosTodos.length; i++) {
+			String nombre = ficherosTodos[i];
+			if(nombre.indexOf(".java") >-1 ){
+				ficheros.add(nombre);
+			}
+		}
+		String[] ficherosJava = new String[ficheros.size()];
+		for (int i = 0; i < ficherosJava.length; i++) {
+			ficherosJava[i] = ficheros.get(i);
+		}
+		return ficherosJava;
+	}
 
 	private void buscarClasesEnArchivo() {
 		int i = this.lArchivos.getSelectedIndex();
@@ -366,5 +387,16 @@ public class fPrincipal extends JFrame {
 		
 		//vaciamos las listas
 		this.txtaCodigo.setText("");
+	}
+	
+	private void limpiarLbls(){
+		this.lblLComentarios.setText("");
+		this.lblLCodTotales.setText("");
+		this.lblPComentarios.setText("");
+		this.lblComplejidadCiclomatica.setText("");
+		this.lblFanIn.setText("");
+		this.lblFanOut.setText("");
+		this.lblHalsteadVolumen.setText("");
+		this.lblHalsteadLongitud.setText("");
 	}
 }

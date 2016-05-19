@@ -15,10 +15,10 @@ public class Metodo {
 				lComentarioMultilinea;
 	private Integer complejidadCiclomatica;	
 	private Integer longitudHalstead,
-	cantidadOperadoresUnicos = 0,
-	cantidadOperadores = 0,
-	cantidadOperandosUnicos = 0,
-	cantidadOperandos = 0;	
+					cantidadOperadoresUnicos,
+					cantidadOperadores,
+					cantidadOperandosUnicos,
+					cantidadOperandos;	
 	private double volumenHalstead;
 	public Metodo(String nombre){
 		this.nombre = nombre;
@@ -35,6 +35,9 @@ public class Metodo {
 		return this.volumenHalstead;
 	}
 	public int getLCodigo(){
+		if (this.codigoFuente.get(1).indexOf("{") > -1) {
+			return this.codigoFuente.size() - 3;
+		}
 		return this.codigoFuente.size() - 2;
 	}
 	
@@ -58,6 +61,10 @@ public class Metodo {
 		lComentarioSimple = 0; 
 		lComentarioMultilinea = 0; 
 		complejidadCiclomatica = 1;	
+		cantidadOperadoresUnicos = 0;
+		cantidadOperadores = 0;
+		cantidadOperandosUnicos = 0;
+		cantidadOperandos = 0;	
 		
 		//Obtengo lineas de codigo y de comentarios
 		for (int i = 0; i < codigoFuente.size(); i++) {
@@ -109,19 +116,8 @@ public class Metodo {
 	}
 	private void calcularHalstead() {
 		
-		/*Set que contendra los operadores del codigo fuente*/
 		Set<String> setOperadores = new HashSet<String>();
-		
-		
-
-//    	Log log = new Log();
-    	// Inicializo las metricas en 0
-    	this.longitudHalstead = 0;
-    	this.volumenHalstead = 0.0;
-    	    	
-        for (String linea : codigoFuente) {
-            //log.debug("Leyendo línea " + linea);
-            
+		for (String linea : codigoFuente) {
             buscarOperadores(linea);
             buscarOperandos(linea);
         }
