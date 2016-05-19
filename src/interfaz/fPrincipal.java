@@ -313,6 +313,8 @@ public class fPrincipal extends JFrame {
 		double porcentaje = Math.round((double) m.getLComentarios() * 100 / m.getLCodigo() );
 		this.lblPComentarios.setText("%" + porcentaje);
 		this.lblComplejidadCiclomatica.setText(m.getComplejidadCiclomatica() + "");
+		this.lblFanIn.setText(m.getFanIn() + "");
+		this.lblFanOut.setText(m.getFanOut() + "");
 	}
 
 	private void listarArchivos(){

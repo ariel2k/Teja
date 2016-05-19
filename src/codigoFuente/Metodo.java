@@ -134,4 +134,13 @@ public class Metodo {
 		return linea.indexOf("*/") > -1;
 	}
 		
+	public int contarPalabraEnMetodo(String palabraABuscar){
+		int cant = 0;
+		for (int i = 1; i < this.codigoFuente.size()-1; i++) {
+			int opt = codigoFuente.get(i).indexOf(palabraABuscar);
+			if(opt > -1)
+				cant ++;
+		}
+		return cant;
+	}
 }

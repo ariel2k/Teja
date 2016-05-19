@@ -28,5 +28,19 @@ public class Metricas {
 		return m.getComplijdadCiclomatica();
 	}
 	
+	public int getFanIn(){
+		int fanIn = 0;
+		for (String nombreMetodo : clase.getNombresMetodos()) {
+			fanIn += m.contarPalabraEnMetodo(nombreMetodo);
+		}	
+		return fanIn;
+	}
 	
+	public int getFanOut(){
+		int fanOut=0;
+		for (Metodo metodo : clase.getMetodos()) {
+			fanOut += metodo.contarPalabraEnMetodo(m.getNombre());
+		}
+		return fanOut;
+	}
 }
