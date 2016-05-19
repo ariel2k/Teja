@@ -10,8 +10,7 @@ public class Metodo {
 	private String nombre;
 	private List<String> codigoFuente;
 	private int lComentarioSimple, 
-				lComentarioMultilinea, 
-				lCodigo;
+				lComentarioMultilinea;
 	private Integer complejidadCiclomatica;	
 	
 	public Metodo(String nombre){
@@ -24,7 +23,7 @@ public class Metodo {
 	}
 	
 	public int getLCodigo(){
-		return this.lCodigo;
+		return this.codigoFuente.size() - 2;
 	}
 	
 	public int getLComentarios(){
@@ -46,7 +45,6 @@ public class Metodo {
 	public void calcularMetricas(){
 		lComentarioSimple = 0; 
 		lComentarioMultilinea = 0; 
-		lCodigo = 0;
 		complejidadCiclomatica = 1;	
 		
 		//Obtengo lineas de codigo y de comentarios
@@ -58,9 +56,8 @@ public class Metodo {
 				int comentarioMultilinea = esComentarioMultiple(linea, i);
 				if( comentarioMultilinea > -1){
 					lComentarioMultilinea += comentarioMultilinea;
-					i += comentarioMultilinea;
-				}else
-					lCodigo++;
+					i += comentarioMultilinea - 1;
+				}
 			}
 		}
 		
@@ -74,14 +71,9 @@ public class Metodo {
         int cantidad;
 		for (int i = 0; i < codigoFuente.size(); i++) {
 			String linea = codigoFuente.get(i);
-			if(!esBlanco(linea) && esComentarioSimple(linea))
-					lComentarioSimple ++;
-			else{
+			if(!esBlanco(linea) && !esComentarioSimple(linea)){
 				int comentarioMultilinea = esComentarioMultiple(linea, i);
-				if( comentarioMultilinea > -1){
-					lComentarioMultilinea += comentarioMultilinea;
-					i += comentarioMultilinea;
-				}else{
+				if( comentarioMultilinea < 0){
 					if (linea.matches(".*\\W*(if|else|case|default|while|for|catch|throw)\\W.*")) {
 		            	for(String palabra : keywords) {
 				        	cantidad = (linea.length() - linea.replace(palabra, "").length()) / palabra.length();
@@ -129,7 +121,7 @@ public class Metodo {
 				i++;		
 				lineaFinal = this.codigoFuente.get(i);
 			}
-			return i - index;
+			return i - index + 1;
 		}
 		return -1;
 	} 

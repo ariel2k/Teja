@@ -46,16 +46,16 @@ public class Interpretador {
 		int cantDeLlaves = 0;
 		for (int i = 0; i < lineasDeCodigo.size(); i++) {
 			String linea = lineasDeCodigo.get(i);
-			if(!esBlanco(linea) && !esComentarioSimple(linea)){
+			/*if(!esBlanco(linea) && !esComentarioSimple(linea)){
 				int comentarioMultilinea = esComentarioMultiple(linea, i);
 				if( comentarioMultilinea > -1){
 					i += comentarioMultilinea;
-				}else{
+				}else{*/
 					int rta = buscarClaseOMetodo(linea,cantDeLlaves);
 					agregarLinea(linea, cantDeLlaves, rta);
 					cantDeLlaves += rta;
-				}
-			}
+			//	}
+		//	}
 		}
 	}
 	

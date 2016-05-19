@@ -42,6 +42,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.Color;
 
 
 public class fPrincipal extends JFrame {
@@ -98,7 +99,7 @@ public class fPrincipal extends JFrame {
 		setTitle("Teja");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 727, 611);
+		setBounds(100, 100, 741, 611);
 		
 		
 		setJMenuBar(menuBar);
@@ -140,7 +141,7 @@ public class fPrincipal extends JFrame {
 		
 		
 		panel.setBackground(SystemColor.text);
-		panel.setBounds(475, 32, 236, 278);
+		panel.setBounds(475, 32, 251, 278);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -178,58 +179,58 @@ public class fPrincipal extends JFrame {
 		
 		
 		lblLCodTotales.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblLCodTotales.setForeground(SystemColor.activeCaption);
+		lblLCodTotales.setForeground(Color.RED);
 		lblLCodTotales.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLCodTotales.setBounds(145, 7, 81, 28);
+		lblLCodTotales.setBounds(145, 7, 101, 28);
 		panel.add(lblLCodTotales);
 		
 		
 		lblLComentarios.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLComentarios.setForeground(SystemColor.activeCaption);
+		lblLComentarios.setForeground(Color.RED);
 		lblLComentarios.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblLComentarios.setBounds(145, 44, 81, 28);
+		lblLComentarios.setBounds(145, 44, 101, 28);
 		panel.add(lblLComentarios);
 		
 		
 		lblPComentarios.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPComentarios.setForeground(SystemColor.activeCaption);
+		lblPComentarios.setForeground(Color.RED);
 		lblPComentarios.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPComentarios.setBounds(145, 76, 81, 28);
+		lblPComentarios.setBounds(145, 76, 101, 28);
 		panel.add(lblPComentarios);
 		
 		
 		lblComplejidadCiclomatica.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblComplejidadCiclomatica.setForeground(SystemColor.activeCaption);
+		lblComplejidadCiclomatica.setForeground(Color.RED);
 		lblComplejidadCiclomatica.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblComplejidadCiclomatica.setBounds(145, 109, 81, 28);
+		lblComplejidadCiclomatica.setBounds(145, 109, 101, 28);
 		panel.add(lblComplejidadCiclomatica);
 		
 		
 		lblFanIn.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFanIn.setForeground(SystemColor.activeCaption);
+		lblFanIn.setForeground(Color.RED);
 		lblFanIn.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblFanIn.setBounds(145, 142, 81, 28);
+		lblFanIn.setBounds(145, 142, 101, 28);
 		panel.add(lblFanIn);
 		
 		
 		lblFanOut.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblFanOut.setForeground(SystemColor.activeCaption);
+		lblFanOut.setForeground(Color.RED);
 		lblFanOut.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblFanOut.setBounds(145, 175, 81, 28);
+		lblFanOut.setBounds(145, 175, 101, 28);
 		panel.add(lblFanOut);
 		
 		
 		lblHalsteadLongitud.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblHalsteadLongitud.setForeground(SystemColor.activeCaption);
+		lblHalsteadLongitud.setForeground(Color.RED);
 		lblHalsteadLongitud.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHalsteadLongitud.setBounds(145, 208, 81, 28);
+		lblHalsteadLongitud.setBounds(145, 208, 101, 28);
 		panel.add(lblHalsteadLongitud);
 		
 		
 		lblHalsteadVolumen.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblHalsteadVolumen.setForeground(SystemColor.activeCaption);
+		lblHalsteadVolumen.setForeground(Color.RED);
 		lblHalsteadVolumen.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHalsteadVolumen.setBounds(145, 241, 81, 28);
+		lblHalsteadVolumen.setBounds(145, 241, 101, 28);
 		panel.add(lblHalsteadVolumen);
 		
 		JLabel lblMtricasDelMtodo = new JLabel("M\u00E9tricas del m\u00E9todo:");
@@ -261,7 +262,7 @@ public class fPrincipal extends JFrame {
 		lMetodos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 344, 701, 206);
+		scrollPane_3.setBounds(10, 344, 716, 206);
 		contentPane.add(scrollPane_3);
 		scrollPane_3.setViewportView(txtaCodigo);
 		
@@ -309,6 +310,8 @@ public class fPrincipal extends JFrame {
 		
 		this.lblLComentarios.setText(m.getLComentarios() + "");
 		this.lblLCodTotales.setText(m.getLCodigo() + "");
+		double porcentaje = Math.round((double) m.getLComentarios() * 100 / m.getLCodigo() );
+		this.lblPComentarios.setText("%" + porcentaje);
 		this.lblComplejidadCiclomatica.setText(m.getComplejidadCiclomatica() + "");
 	}
 
