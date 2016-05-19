@@ -87,6 +87,7 @@ public class Interpretador {
 				if(cantDeLlaves == 2){
 					String linea2 = this.lineasDeCodigo.get(--i);
 					agregarMetodo(linea2);
+					agregarLineasAlMetodo(linea2);
 				}
 				return 1;
 			}

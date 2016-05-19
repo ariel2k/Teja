@@ -3,7 +3,8 @@ package codigosEjemplo;
 public class ClaseParaJugar 
 {
 
-	public void todoComentarioSimple(){
+	public void todoComentarioSimple()
+	{
 		//hola
 		//yo
 		//soy
