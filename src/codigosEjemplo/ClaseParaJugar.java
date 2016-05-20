@@ -104,7 +104,8 @@ public class ClaseParaJugar
 		}
 	}
 	
-	public void CCFor_3(){
+	public void CCFor_3()
+	{
 		for (int i = 0; i < 3; i++) {
 			if (i>1) {
 				System.out.println("es");
@@ -126,6 +127,15 @@ public class ClaseParaJugar
 		//Que hacemo
 	}
 	
-	
+	public void Volumen_175(int n, int[] x, int aux)
+	{
+		for (int i = 2; i <= n; i++) 
+			for (int j = 0; j < i; j++) 
+				if (x[i] < x[j]) {
+					aux = x[i];
+					x[i] = x[j];
+					x[j] = aux;
+				}
+	}	
 	
 }

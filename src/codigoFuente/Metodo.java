@@ -117,17 +117,25 @@ public class Metodo {
 	private void calcularHalstead() {
 		
 		Set<String> setOperadores = new HashSet<String>();
+		/*
 		for (String linea : codigoFuente) {
             buscarOperadores(linea);
             buscarOperandos(linea);
         }
+		*/
+		for (int i = 1; i < codigoFuente.size(); i++) {
+			String linea = codigoFuente.get(i);
+			System.out.println(linea);
+			buscarOperadores(linea);
+            buscarOperandos(linea);
+		}
         
         this.cantidadOperadoresUnicos = this.setOperadores.size();
         this.cantidadOperandosUnicos = this.setOperandos.size();
         
         this.longitudHalstead = this.cantidadOperadores + this.cantidadOperandos;
         this.volumenHalstead = (this.longitudHalstead * (Math.log(this.cantidadOperadoresUnicos + this.cantidadOperandosUnicos)) / Math.log(2));
-        					// Hago esa cuenta para calcular el log en base 2. log en base 2 = log(x) / log(2)
+        // Hago esa cuenta para calcular el log en base 2. log en base 2 = log(x) / log(2)
 
 	}
     
