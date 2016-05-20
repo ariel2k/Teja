@@ -124,7 +124,7 @@ public class ClaseParaJugar
 	
 	public void MetodoConLlaveAbajo_1 ()
 	{
-		//Que hacemo
+		/*Que hacemo*/
 	}
 	
 	public void Volumen_175 (int n, int[] x, int aux)

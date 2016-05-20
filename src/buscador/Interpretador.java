@@ -181,15 +181,17 @@ public class Interpretador {
 	}
 	
 	private void agregarClase(String linea) {
-		//System.out.println("----LINEA CLASE---");
+		//Trabajo parecido con el nombre de la clase
 		String[] palabras = linea.split(" ");
 		String nombreClase;
-		if(palabras[2].indexOf("{") > -1){
-			nombreClase = palabras[2].substring(0, palabras[2].length()-1);
+		//Como yo se que siempre la clase va a ser "Public class Nombre" y la llave esta abajo o en el mismo renglon. 
+		//Depende si la encuentro arriba, el nombre va a ser el vector palabra posicion 2 cortado el ultimo caracter que es la llave o no
+		int indiceLlave =palabras[2].indexOf("{") ; 
+		if( indiceLlave > -1){
+			nombreClase = palabras[2].substring(0, indiceLlave);
 		}else{
 			nombreClase = palabras[2];
 		}
-		//System.out.println(nombreClase);
 		Clase c = new Clase(nombreClase);
 		this.clases.add(c);
 	}

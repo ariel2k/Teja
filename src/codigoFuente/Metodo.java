@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.SynchronousQueue;
 
 public class Metodo {
 	Set<String> setOperadores = new HashSet<String>();
@@ -128,7 +129,7 @@ public class Metodo {
 			if(!esBlanco(linea) && !esComentarioSimple(linea)){
 				int comentarioMultilinea = esComentarioMultiple(linea, i);
 				if( comentarioMultilinea < 0){
-					System.out.println(linea);
+					//System.out.println(linea);
 					buscarOperadores(linea);
 		            buscarOperandos(linea);
 				}
@@ -146,14 +147,15 @@ public class Metodo {
     
     void buscarOperadores(String linea) {
     	/*Listado de palabras que consideramos operadores*/
-		String operadores [] = {"if", "else", "case", "default", "for", "while", "catch", "throw",
+		String operadores [] = { "{" , "}", "++", "(" , ")", "[", "]", "if", "else", "case", "default", "for", "while", "catch", "throw",
 								"+", "-", "*", "/", "==", "!=", "=", "<=", ">=", "<", ">",
-								"&&", "||", "and", "or", "equal to"};
+								"&&", "||", "and", "or", "equal to",};
 
 		/*Set que contendra los operadores del codigo fuente*/
-		
+		System.out.println("---Operadores----{");
     	for(int i = 0; i < operadores.length - 1; i++)
     		if(linea.contains(operadores[i])) {
+    			System.out.println(operadores[i]);
     			this.cantidadOperadores += 1;
     			this.setOperadores.add(operadores[i]);
     		}
@@ -161,13 +163,15 @@ public class Metodo {
     
     void buscarOperandos(String linea) {
     	String operandos[] = linea.split("^.*(if|else|case|default|for|while|catch|throw|\\+|-|\\*|\\/"
-    									 + "|={1}?|!=|={2}?|<=|>=|<{1}?|>{1}?|&&|\\|{2}?|and|or|equal to).*");
+    									 + "|={1}?|!=|={2}?|<=|>=|<{1}?|>{1}?|&&|\\|{2}?|and|or|equal to|\\{|\\}|\\+\\+|\\(|\\)|\\[|\\]).*");
 
 		
 		/*Set que contendra los operandos del codigo fuente*/
 
+    	System.out.println("--OPERANDOS--");
     	for(int i = 0; i < operandos.length ; i++)
     	{
+    		System.out.println(operandos[i]);
     		this.cantidadOperandos += 1;
     		this.setOperandos.add(operandos[i]);
     	}
