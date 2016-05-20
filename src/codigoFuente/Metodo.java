@@ -152,10 +152,8 @@ public class Metodo {
 								"&&", "||", "and", "or", "equal to",};
 
 		/*Set que contendra los operadores del codigo fuente*/
-		System.out.println("---Operadores----{");
-    	for(int i = 0; i < operadores.length - 1; i++)
+		for(int i = 0; i < operadores.length - 1; i++)
     		if(linea.contains(operadores[i])) {
-    			System.out.println(operadores[i]);
     			this.cantidadOperadores += 1;
     			this.setOperadores.add(operadores[i]);
     		}
@@ -168,10 +166,8 @@ public class Metodo {
 		
 		/*Set que contendra los operandos del codigo fuente*/
 
-    	System.out.println("--OPERANDOS--");
     	for(int i = 0; i < operandos.length ; i++)
     	{
-    		System.out.println(operandos[i]);
     		this.cantidadOperandos += 1;
     		this.setOperandos.add(operandos[i]);
     	}
