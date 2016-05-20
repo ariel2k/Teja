@@ -156,19 +156,26 @@ public class Interpretador {
 		return linea.replace("{", "").matches("(|\\s+)");
 	}
 
+	//en base a la linea de entrada, busco el nombre del metodo.
+	//ejemplo: public void hola(int aa){ }
 	private void agregarMetodo(String linea) {
+		//divido la linea en espacios en blanco
 		String[] palabras = linea.split(" ");
-		//System.out.println("LINEA METODO: ");
 		int indiceParentesis;
 		String nombreMetodo = "";
+		//voy palabra por palabra y busco el parentesis abierto
 		for (int i = 0; i < palabras.length; i++) {
-			//System.out.println(i + ": " + palabras[i]);
 			indiceParentesis = palabras[i].indexOf("(");
+			//compruebo que el parentesis este pegado al nombre o este solo separado del nombre
+			//si da cero, es porque esta solo y no hace falta cortar nada y el nombre esta solo en una posicion anterior
+			if(indiceParentesis == 0){
+				nombreMetodo = palabras[i-1];
+			}else
+			//si da mayor, es porque el parentesis esta al lado del nombre y hay que cortarlo.
 			if(indiceParentesis > -1){
 				nombreMetodo = palabras[i].substring(0, indiceParentesis);
 			}
 		}
-		//System.out.println(nombreMetodo);
 		int sizeClases = this.clases.size() -1;
 		this.clases.get(sizeClases).addMetodo(nombreMetodo);
 	}

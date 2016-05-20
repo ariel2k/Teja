@@ -3,7 +3,7 @@ package codigosEjemplo;
 public class ClaseParaJugar 
 {
 
-	public void todoComentarioSimple()
+	public void todoComentarioSimple ()
 	{
 		//hola
 		//yo
@@ -114,20 +114,20 @@ public class ClaseParaJugar
 		}
 	}
 	
-	public void FanIn_1(){
+	public void FanIn_1 (){
 		FanOut_1();
 	}
 	
-	public void FanOut_1(){
+	public void FanOut_1 (){
 		
 	}
 	
-	public void MetodoConLlaveAbajo_1()
+	public void MetodoConLlaveAbajo_1 ()
 	{
 		//Que hacemo
 	}
 	
-	public void Volumen_175(int n, int[] x, int aux)
+	public void Volumen_175 (int n, int[] x, int aux)
 	{
 		for (int i = 2; i <= n; i++) 
 			for (int j = 0; j < i; j++) 

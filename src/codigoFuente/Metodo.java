@@ -125,9 +125,14 @@ public class Metodo {
 		*/
 		for (int i = 1; i < codigoFuente.size(); i++) {
 			String linea = codigoFuente.get(i);
-			System.out.println(linea);
-			buscarOperadores(linea);
-            buscarOperandos(linea);
+			if(!esBlanco(linea) && !esComentarioSimple(linea)){
+				int comentarioMultilinea = esComentarioMultiple(linea, i);
+				if( comentarioMultilinea < 0){
+					System.out.println(linea);
+					buscarOperadores(linea);
+		            buscarOperandos(linea);
+				}
+			}
 		}
         
         this.cantidadOperadoresUnicos = this.setOperadores.size();
